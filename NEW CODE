@@ -1,0 +1,20 @@
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy.optimize import curve_fit
+
+# Define the function to fit
+def func(x, a, b, c):
+    return a * np.exp(-b * x) + c
+
+# Generate some data points
+xdata = np.linspace(0, 4, 50)
+ydata = func(xdata, 2.5, 1.3, 0.5) + 0.2 * np.random.normal(size=len(xdata))
+
+# Fit the curve to the data
+popt, pcov = curve_fit(func, xdata, ydata)
+
+# Plot the results
+plt.plot(xdata, ydata, 'o', label='data')
+plt.plot(xdata, func(xdata, *popt), '-', label='fit')
+plt.legend()
+plt.show()
